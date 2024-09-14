@@ -331,47 +331,47 @@ class DDPM(pl.LightningModule):
                 loss = torch.nn.functional.mse_loss(target, pred, reduction='none')
 #                 loss = torch.nn.functional.cross_entropy(target, pred, reduction='none')
 
-                # for i in range(2):
-                #     if shape_x == 1:
-                #         break
-                #     # 这一步操作是将重建的图像送入到segmentation
-                #     # new_channel = np.zeros((64,64,1))
-                #     image = x[i:i + 1, :, :, :]
-                #     image = image.squeeze().permute(1, 2, 0).cpu().numpy()
-                #     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                #     image = cv2.resize(image, (64, 64))
-                #
-                #     image_segmentation = image_segmentation_total[i:i + 1, :, :, :].squeeze().cpu().numpy()
-                #     # image_segmentation = image_segmentation[0:1, :, :]
-                #
-                #     image_segmentation = cv2.resize(image_segmentation, (64, 64))
-                #
-                #     predictor = SamPredictor(sam)
-                #     image = image.astype(np.uint8)
-                #     predictor.set_image(image)
-                #     mask_generator = SamAutomaticMaskGenerator(sam)
-                #     masks = mask_generator.generate(image)
-                #     # (64, 64, 4)
-                #     # image_with_mask = np.concatenate((image, np.zeros_like(image[..., :1])), axis=-1)
-                #     gray_img, img = show_anns(masks)
-                #     # img = np.concatenate([img, new_channel], axis=2)
-                #     # image_segmentation = np.concatenate([image_segmentation, new_channel], axis=2)
-                #     image_segmentation = torch.from_numpy(image_segmentation).to(device)
-                #     img = torch.from_numpy(img).to(device)
-                #
-                #     image_segmentation = image_segmentation.permute(2, 0, 1)
-                #     image_segmentation = torch.cat([image_segmentation, self.new_channel],dim= 0 )
-                #     image_segmentation = image_segmentation.unsqueeze(1)
-                #     image_segmentation = image_segmentation.expand(-1, 4, -1, -1)
-                #
-                #     img = img.permute(2, 0, 1)
-                #     img = torch.cat([img, self.new_channel], dim= 0)
-                #     img = img.unsqueeze(1)
-                #     img = img.expand(-1, 4, -1, -1)
-                #
-                #     # todo cross_entropy
-                #     loss1 = torch.nn.functional.cross_entropy(image_segmentation, img, reduction='none')
-                #     loss = loss1 + loss
+                for i in range(2):
+                    if shape_x == 1:
+                        break
+                    # 这一步操作是将重建的图像送入到segmentation
+                    # new_channel = np.zeros((64,64,1))
+                    image = x[i:i + 1, :, :, :]
+                    image = image.squeeze().permute(1, 2, 0).cpu().numpy()
+                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                    image = cv2.resize(image, (64, 64))
+                
+                    image_segmentation = image_segmentation_total[i:i + 1, :, :, :].squeeze().cpu().numpy()
+                    # image_segmentation = image_segmentation[0:1, :, :]
+                
+                    image_segmentation = cv2.resize(image_segmentation, (64, 64))
+                
+                    predictor = SamPredictor(sam)
+                    image = image.astype(np.uint8)
+                    predictor.set_image(image)
+                    mask_generator = SamAutomaticMaskGenerator(sam)
+                    masks = mask_generator.generate(image)
+                    # (64, 64, 4)
+                    # image_with_mask = np.concatenate((image, np.zeros_like(image[..., :1])), axis=-1)
+                    gray_img, img = show_anns(masks)
+                    # img = np.concatenate([img, new_channel], axis=2)
+                    # image_segmentation = np.concatenate([image_segmentation, new_channel], axis=2)
+                    image_segmentation = torch.from_numpy(image_segmentation).to(device)
+                    img = torch.from_numpy(img).to(device)
+                
+                    image_segmentation = image_segmentation.permute(2, 0, 1)
+                    image_segmentation = torch.cat([image_segmentation, self.new_channel],dim= 0 )
+                    image_segmentation = image_segmentation.unsqueeze(1)
+                    image_segmentation = image_segmentation.expand(-1, 4, -1, -1)
+                
+                    img = img.permute(2, 0, 1)
+                    img = torch.cat([img, self.new_channel], dim= 0)
+                    img = img.unsqueeze(1)
+                    img = img.expand(-1, 4, -1, -1)
+                
+                    # todo cross_entropy
+                    loss1 = torch.nn.functional.cross_entropy(image_segmentation, img, reduction='none')
+                    loss = loss1 + loss
 
                     # for sublist in loss:
                     #     if type(sublist) != dict:
