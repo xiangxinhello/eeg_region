@@ -13,3 +13,5 @@ With the recent breakthrough of AI-generated content (AIGC) technologies, it bec
 # visualization_results in [Thing-EEG2 dataset](https://osf.io/hd6zk/)
 ![results](visualization_result/things_eeg.png)
 
+## Acknowledgement
+This code is built upon the publicly available code [Mind-vis](https://github.com/zjc062/mind-vis), [StableDiffusion](https://github.com/CompVis/stable-diffusion), [DreamDiffusion](https://github.com/bbaaii/DreamDiffusion) and [Segment-Anything](https://segment-anything.com/). Thanks these authors for making their excellent work and codes publicly available.
