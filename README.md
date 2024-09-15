@@ -1,6 +1,6 @@
 # EEG-Driven Natural Image Reconstruction with Semantic Region Awareness
 <p align="center">
-<img src=visualization_result/github_figure2.png / width="70%" height="70%" >
+<img src=visualization_result/github_figure1.png / width="70%" height="70%" >
 </p>
 
 ### Abstract
