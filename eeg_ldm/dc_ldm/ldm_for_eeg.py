@@ -46,7 +46,7 @@ class cond_stage_model(nn.Module):
         else:
             model = eeg_encoder(time_len=num_voxels, global_pool=global_pool)
         # cnn_class_embedding
-        self.cnn_path = '/home/dream_/DreamDiffusion/class_cnn_model.ckpt'
+        self.cnn_path = '/home/class_cnn_model.ckpt'
         self.num_classes = 40
         # device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.device = device
@@ -57,7 +57,7 @@ class cond_stage_model(nn.Module):
         # transformer_class_embedding
         from dc_ldm.transformer_model import Transformer
         self.transformer_model = Transformer().cuda()
-        self.transformer_path = '/home/dream_/DreamDiffusion/ImageNetClass_TransformerEncoder_3382_0.9469_0.8851_0.8992_weights.pth'
+        self.transformer_path = '/home/ImageNetClass_TransformerEncoder_3382_0.9469_0.8851_0.8992_weights.pth'
         ckpt = torch.load(self.transformer_path)
         self.transformer_model.load_state_dict(ckpt['net'], strict=False)
 
@@ -176,16 +176,14 @@ class eLDM:
         # self.ckp_path = os.path.join(pretrain_root, 'model.ckpt')
         # self.ckp_path = os.path.join(pretrain_root, 'models/v1-5-pruned.ckpt')
         # self.config_path = os.path.join(pretrain_root, 'models/config15.yaml')
-        self.ckp_path = '/home/dream_/DreamDiffusion/v1-5-pruned.ckpt'
-#         self.ckp_path = '/root/autodl-tmp/DreamDiffusion/dreamdiffusion/exps/results/generation/15-11-2023-09-44-35/checkpoint_best.pth'
-#         self.ckp_path = '/root/autodl-tmp/DreamDiffusion/dreamdiffusion/exps/results/generation/15-11-2023-09-44-35/checkpoint_best.pth'
+        self.ckp_path = '/home/v1-5-pruned.ckpt'
 
 
-        # self.ckp_path = '/root/autodl-tmp/DreamDiffusion/model.ckpt'
-        self.config_path = '/home/dream_/DreamDiffusion/pretrains/models/config15.yaml'
+        # self.ckp_path = '/home/model.ckpt'
+        self.config_path = '/home/config15.yaml'
 
         #todo class_embedding
-        self.cnn_path = '/home/dream_/DreamDiffusion/cnn_model.ckpt'
+        self.cnn_path = '/home/cnn_model.ckpt'
         # class_embedding_model = torch.load(self.class_path)
 
         config = OmegaConf.load(self.config_path)
