@@ -40,15 +40,15 @@ __conditioning_keys__ = {'concat': 'c_concat',
 
 from dc_ldm.modules.encoders.modules import FrozenImageEmbedder
 
-# from segment_anything_main.segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
-# from text import show_anns
+from segment_anything_main.segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
+from text import show_anns
 import cv2
-# sam_checkpoint = '/root/autodl-tmp/DreamDiffusion/code/segment_anything_main/checkpoints/sam_vit_h_4b8939.pth'
+sam_checkpoint = '/home/segment_anything_main/checkpoints/sam_vit_h_4b8939.pth'
 # model_type = 'vit_h'
 device = "cuda:0"
 
-# sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
-# sam.to(device=device)
+sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
+sam.to(device=device)
 
 
 
