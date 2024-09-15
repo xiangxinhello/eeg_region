@@ -111,7 +111,7 @@ def is_npy_ext(fname: Union[str, Path]) -> bool:
     return f'{ext}' == 'npy'# type: ignore
 
 class eeg_pretrain_dataset(Dataset):
-    def __init__(self, path='../dreamdiffusion/datasets/mne_data/', roi='VC', patch_size=16, transform=identity, aug_times=2, 
+    def __init__(self, path='../datasets/mne_data/', roi='VC', patch_size=16, transform=identity, aug_times=2, 
                 num_sub_limit=None, include_kam=False, include_hcp=True):
         super(eeg_pretrain_dataset, self).__init__()
         data = []
@@ -245,7 +245,7 @@ class EEGDataset_r(Dataset):
     # Constructor
     def __init__(self, eeg_signals_path, image_transform=identity):
 
-        self.imagenet = '/apdcephfs/share_1290939/0_public_datasets/imageNet_2012/train/'
+        self.imagenet = '/imageNet_2012/train/'
         self.image_transform = image_transform
         self.num_voxels = 440
         self.data_len = 512
@@ -281,7 +281,7 @@ class EEGDataset_s(Dataset):
         self.data = loaded['dataset']        
         self.labels = loaded["labels"]
         self.images = loaded["images"]
-        self.imagenet = '/apdcephfs/share_1290939/0_public_datasets/imageNet_2012/train/'
+        self.imagenet = '/imageNet_2012/train/'
         self.image_transform = image_transform
         self.num_voxels = 440
         # Compute size
@@ -325,7 +325,7 @@ class EEGDataset(Dataset):
     # Constructor
     def __init__(self, eeg_signals_path, image_transform=identity, subject = 4):
         # Load EEG signals
-        eeg_signals_path = '/home/dream_/DreamDiffusion/datasets/mne_data/eeg_5_95_std.pth'
+        eeg_signals_path = '../datasets/mne_data/eeg_5_95_std.pth'
         loaded = torch.load(eeg_signals_path)
         # if opt.subject!=0:
         #     self.data = [loaded['dataset'][i] for i in range(len(loaded['dataset']) ) if loaded['dataset'][i]['subject']==opt.subject]
@@ -337,16 +337,16 @@ class EEGDataset(Dataset):
             self.data = loaded['dataset']        
         self.labels = loaded["labels"]
         self.images = loaded["images"]
-        # self.imagenet = '/root/autodl-tmp/DreamDiffusion/imageNet_images_old/'
-#         self.imagenet = '/root/autodl-tmp/DreamDiffusion/image_new_thing/'
-        self.imagenet = '/home/dream_/DreamDiffusion/test_result/'
-        self.imagenet_segmentation = '/home/dream_/DreamDiffusion/imageNet_images_new_segmentation/'
+        # self.imagenet = '/root/imageNet_images_old/'
+#         self.imagenet = '/root/image_new_thing/'
+        self.imagenet = '/home/test_result/'
+        self.imagenet_segmentation = '/home/imageNet_images_new_segmentation/'
         self.image_transform = image_transform
         self.num_voxels = 440
         self.data_len = 512
         # Compute size
         self.size = len(self.data)
-        self.processor = AutoProcessor.from_pretrained("/home/dream_/DreamDiffusion/transformers/")
+        self.processor = AutoProcessor.from_pretrained("/home/transformers/")
 
     # Get size
     def __len__(self):
@@ -417,7 +417,7 @@ class Splitter:
         # Set EEG dataset
         self.dataset = dataset
         # Load split
-        split_path = '/home/dream_/DreamDiffusion/datasets/mne_data/block_splits_by_image_single.pth'
+        split_path = '/home/datasets/mne_data/block_splits_by_image_single.pth'
         loaded = torch.load(split_path)
 
         self.split_idx = loaded["splits"][split_num][split_name]
@@ -438,12 +438,12 @@ class Splitter:
         return self.dataset[self.split_idx[i]]
 
 
-def create_EEG_dataset(eeg_signals_path='../dreamdiffusion/datasets/eeg_5_95_std.pth', 
-            splits_path = '../dreamdiffusion/datasets/block_splits_by_image_single.pth',
-            # splits_path = '../dreamdiffusion/datasets/block_splits_by_image_all.pth',
+def create_EEG_dataset(eeg_signals_path='../datasets/eeg_5_95_std.pth', 
+            splits_path = '../datasets/block_splits_by_image_single.pth',
+            # splits_path = '../datasets/block_splits_by_image_all.pth',
             image_transform=identity, subject = 0):
     # if subject == 0:
-        # splits_path = '../dreamdiffusion/datasets/block_splits_by_image_all.pth'
+        # splits_path = '../datasets/block_splits_by_image_all.pth'
     if isinstance(image_transform, list):
         dataset_train = EEGDataset(eeg_signals_path, image_transform[0], subject )
         dataset_test = EEGDataset(eeg_signals_path, image_transform[1], subject)
@@ -457,9 +457,9 @@ def create_EEG_dataset(eeg_signals_path='../dreamdiffusion/datasets/eeg_5_95_std
 
 
 
-def create_EEG_dataset_r(eeg_signals_path='../dreamdiffusion/datasets/eeg_5_95_std.pth', 
-            # splits_path = '../dreamdiffusion/datasets/block_splits_by_image_single.pth',
-            splits_path = '../dreamdiffusion/datasets/block_splits_by_image_all.pth',
+def create_EEG_dataset_r(eeg_signals_path='../datasets/eeg_5_95_std.pth', 
+            # splits_path = '../datasets/block_splits_by_image_single.pth',
+            splits_path = '../datasets/block_splits_by_image_all.pth',
             image_transform=identity):
     if isinstance(image_transform, list):
         dataset_train = EEGDataset_r(eeg_signals_path, image_transform[0])
