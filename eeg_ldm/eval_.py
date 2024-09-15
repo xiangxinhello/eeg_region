@@ -51,10 +51,10 @@ class random_crop:
 def get_args_parser():
     parser = argparse.ArgumentParser('Double Conditioning LDM Finetuning', add_help=False)
     # project parameters
-    parser.add_argument('--root', type=str, default='../dreamdiffusion/')
+    parser.add_argument('--root', type=str, default='../home')
     parser.add_argument('--dataset', type=str, default='GOD')
-#     parser.add_argument('--model_path', type=str, default='/root/autodl-tmp/DreamDiffusion/dreamdiffusion/exps/results/generation/28-11-2023-20-37-07/checkpoint_best.pth')
-    parser.add_argument('--model_path', type=str, default='/home/dream_/DreamDiffusion/dreamdiffusion/exps/results/generation/02-09-2024-14-23-23/checkpoint.pth')
+#     parser.add_argument('--model_path', type=str, default='/home/results/generation/28-11-2023-20-37-07/checkpoint_best.pth')
+    parser.add_argument('--model_path', type=str, default='/home/results/generation/02-09-2024-14-23-23/checkpoint.pth')
     return parser
 
 
@@ -68,8 +68,8 @@ if __name__ == '__main__':
     config = sd['config']
     # update paths
     config.root_path = root
-    config.pretrain_mbm_path = '/home/dream_/DreamDiffusion/pretrains/eeg_pretain/checkpoint20231102.pth'
-    config.pretrain_gm_path = '../dreamdiffusion/pretrains/'
+    config.pretrain_mbm_path = '/home/pretrains/eeg_pretain/checkpoint20231102.pth'
+    config.pretrain_gm_path = '../pretrains/'
     print(config.__dict__)
 
     output_path = os.path.join(config.root_path, 'results', 'eval',  
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     ])
 
     
-    splits_path = "../dreamdiffusion/datasets/block_splits_by_image_single.pth"
+    splits_path = "../datasets/block_splits_by_image_single.pth"
     dataset_train, dataset_test = create_EEG_dataset(eeg_signals_path = config.eeg_signals_path, splits_path = splits_path, 
                 image_transform=[img_transform_train, img_transform_test], subject = 4)
     num_voxels = dataset_test.dataset.data_len
