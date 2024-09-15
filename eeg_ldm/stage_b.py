@@ -216,8 +216,8 @@ def get_args_parser():
     parser = argparse.ArgumentParser('Double Conditioning LDM Finetuning', add_help=False)
     # project parameters
     parser.add_argument('--seed', type=int)
-    parser.add_argument('--root_path', type=str, default = '../dreamdiffusion/')
-    parser.add_argument('--pretrain_mbm_path', type=str, default = '/root/autodl-tmp/DreamDiffusion/pretrains/eeg_pretain/checkpoint20231102.pth')
+    parser.add_argument('--root_path', type=str, default = '../home/')
+    parser.add_argument('--pretrain_mbm_path', type=str, default = '/home/pretrains/eeg_pretain/checkpoint20231102.pth')
     parser.add_argument('--checkpoint_path', type=str)
     parser.add_argument('--crop_ratio', type=float)
     parser.add_argument('--dataset', type=str, default='EEG')
