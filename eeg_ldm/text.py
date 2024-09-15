@@ -34,12 +34,12 @@ def show_anns(anns):
 
 
 
-sam_checkpoint='/root/autodl-tmp/DreamDiffusion/code/segment_anything_main/checkpoints/sam_vit_h_4b8939.pth'
+sam_checkpoint='/home/segment_anything_main/checkpoints/sam_vit_h_4b8939.pth'
 model_type='vit_h'
 # folder_path = '/home/lab505/mind/segment_anything_main/output1'
-folder_path = '/root/autodl-tmp/DreamDiffusion/code/segment_anything_main/eeg_jpeg'
-save_folder_path = '/root/autodl-tmp/DreamDiffusion/code/segment_anything_main/output2'
-label_path = '/root/autodl-tmp/DreamDiffusion/code/segment_anything_main/imageNet_class.json'
+folder_path = '/home/segment_anything_main/eeg_jpeg'
+save_folder_path = '/home/segment_anything_main/output2'
+label_path = '/home/segment_anything_main/imageNet_class.json'
 
 
 device = "cuda:0"
