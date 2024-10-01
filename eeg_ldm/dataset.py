@@ -360,15 +360,10 @@ class EEGDataset(Dataset):
 
         eeg = eeg[20:460,:]
 
-        # 时域、频域划分
         eeg_fre_time = self.data[i]["eeg"].float()
         fre_eeg, time_eeg = fre_time_split(eeg_fre_time)
         fre_eeg, time_eeg = fre_eeg, (time_eeg.t())[20:460, :]
 
-
-
-
-        ##### 2023 2 13 add preprocess and transpose
         eeg = np.array(eeg.transpose(0,1))
         x = np.linspace(0, 1, eeg.shape[-1])
         x2 = np.linspace(0, 1, self.data_len)
