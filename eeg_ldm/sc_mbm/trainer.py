@@ -57,7 +57,7 @@ def train_one_epoch(model, data_loader, optimizer, device, epoch,
     total_loss = []
     total_cor = []
     accum_iter = config.accum_iter
-    for data_iter_step, (data_dcit) in enumerate(data_loader):
+    for data_iter_step, (data_dict) in enumerate(data_loader):
         
         # we use a per iteration (instead of per epoch) lr scheduler
         # print(data_iter_step)
@@ -65,12 +65,12 @@ def train_one_epoch(model, data_loader, optimizer, device, epoch,
         
         if data_iter_step % accum_iter == 0:
             ut.adjust_learning_rate(optimizer, data_iter_step / len(data_loader) + epoch, config)
-        samples = data_dcit['eeg']
+        samples = data_dict['eeg']
         
         img_features = None
         valid_idx = None
         if img_feature_extractor is not None:
-            images = data_dcit['image']
+            images = data_dict['image']
             valid_idx = torch.nonzero(images.sum(dim=(1,2,3)) != 0).squeeze(1)
             img_feature_extractor.eval()
             with torch.no_grad():
